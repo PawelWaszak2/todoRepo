@@ -14,7 +14,7 @@ class HomeController extends Controller
         return view('home');
     }
     public function getAllTasks(){
-
+        return view('show_tasks')->with('tasks', Task::all());
     }
     public function getOneTask(){
 
