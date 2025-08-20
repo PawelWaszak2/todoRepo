@@ -33,7 +33,17 @@ class HomeController extends Controller
         $task->save();
         return redirect('/home');
     }
-    public function updateTask(){
+    public function editTask($id){
+        $task = Task::findOrFail($id);
+        return view('edit_task', compact('task'));
+    }
+    public function updateTask(request $request, $id){
+        $task = Task::findOrFail($id);
+        $task->name = $request->input('name');
+        $task->description = $request->input('description');
+        $task->realization_time = $request->input('realization_time');
+        $task->save();
+    return redirect('/tasks');
 
     }
     public function deleteTask(){
