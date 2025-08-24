@@ -16,6 +16,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{route('home')}}">Home</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{route('createTask')}}">Add task</a>
             </li>
@@ -23,18 +24,33 @@
                 <a class="nav-link " href="{{route('getAllTasks')}}">My tasks</a>
             </li>
         </ul>
-        @guest
-        <button class="btn btn-info" style="position: absolute; margin-left: 80%"><a style="text-decoration: none; color: black" href="{{route('loginIndex')}}">Log in</a></button>
-        <button class="btn btn-success" style="position: absolute; margin-left: 86%"><a style="text-decoration: none; color: black" href="{{route('registerIndex')}}">Register</a></button>
-        @endguest
     </div>
-    <form action="{{route('logout')}}" method="POST">
-        @csrf
-        @auth
-            <span style="color: white">Hi there, {{Auth::user()->name}}</span>
-        <button class="btn btn-danger">Log out</button>
-        @endauth
-    </form>
 </nav>
+<main>
+    @if($errors->any())
+        <div class="bg-red-100 text-red-700 p-4 mb-4">
+            <ul class="list-disc list-inside">
+                @foreach ($errors->all() as $error)
+                    <button class="btn btn-danger">{{ $errors }}</button>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{route('loginRequest')}}" method="POST">
+        @csrf
+        <div class="mb-3" style="margin-top: 20px">
+            <label style="font-size: 30px; font-weight: 700">Log into your account</label>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">E-mail</label>
+            <input value="{{old('email')}}" name="email" type="email" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input  name="password" type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+</main>
 </body>
 </html>
