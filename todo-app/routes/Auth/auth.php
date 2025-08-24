@@ -2,9 +2,13 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/login', [AuthController::class, 'loginIndex']);
-Route::post('/login', [AuthController::class, 'loginRequest']);
+Route::middleware('guest')->controller(AuthController::class)->group(function () {
 
-Route::get('/register', [AuthController::class, 'registerIndex']);
-Route::post('/register', [AuthController::class, 'registerRequest']);
+    Route::get('/login', 'loginIndex')->name('loginIndex');
+    Route::post('/login', 'loginRequest')->name('loginRequest');
+    Route::get('/register', 'registerIndex')->name('registerIndex');
+    Route::post('/register', 'registerRequest')->name('registerRequest');
+
+});

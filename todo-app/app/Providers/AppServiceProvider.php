@@ -21,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::middleware('web')
-            ->group(base_path('routes/Home/home.php'));
+            ->group(base_path('routes/Home/home.php'))
+            ->group(base_path('routes/Auth/Auth.php'));
     }
+
 }
